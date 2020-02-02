@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Totoro, wake up!</title>
+		<style>
+			html,
+			body {
+				background-color: #666666;
+				font-family: sans-serif;
+				color: white;
+				height: 100vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			*[role="button"] {
+				cursor: pointer;
+			}
+			#totoro {
+				z-index: 1;
+			}
+			.belly {
+				position: fixed;
+				bottom: 0;
+				width: 100%;
+				height: 20%;
+				background: gray;
+				border-top-left-radius: 50%;
+				border-top-right-radius: 50%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="totoro" role="button" tabindex="0"></div>
+		<div class="belly"></div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.6.3/lottie.min.js"></script>
+		<script>
+			var animation = bodymovin.loadAnimation({
+				container: document.getElementById("totoro"),
+				renderer: "svg",
+				loop: false,
+				autoplay: false,
+				path: "totoro.json"
+			});
+
+			var totoro = document.getElementById("totoro");
+			var sleep = true;
+			totoro.addEventListener("click", checkTotoro);
+			totoro.addEventListener("keypress", function(e) {
+				if (e.keyCode == 13 || e.keyCode == 32) {
+					checkTotoro();
+				}
+			});
+			function checkTotoro() {
+				if (sleep) {
+					animation.play();
+					animation.setDirection(1);
+				} else {
+					animation.setDirection(-1);
+					animation.play();
+				}
+				sleep = !sleep;
+			}
+		</script>
+	</body>
+</html>
